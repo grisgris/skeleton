@@ -10,7 +10,6 @@
 
 namespace Grisgris\Test\Suites\Unit\Provider;
 
-use Grisgris\Test\Reflection;
 use Grisgris\Test\TestCase;
 
 use Grisgris\Loader;

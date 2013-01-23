@@ -10,7 +10,6 @@
 
 namespace Grisgris\Test\Suites\Unit\Date;
 
-use Grisgris\Test\Reflection;
 use Grisgris\Test\TestCase;
 
 use DateTimeZone;
