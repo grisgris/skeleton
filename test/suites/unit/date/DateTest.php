@@ -37,7 +37,7 @@ class DateTest extends TestCase
 	 *
 	 * @since   13.1
 	 */
-	public function cases__construct()
+	public static function cases__construct()
 	{
 		date_default_timezone_set('UTC');
 
@@ -77,7 +77,7 @@ class DateTest extends TestCase
 	 *
 	 * @since   13.1
 	 */
-	public function cases__get()
+	public static function cases__get()
 	{
 		return array(
 			'daysinmonth' => array(
@@ -150,7 +150,7 @@ class DateTest extends TestCase
 	 *
 	 * @since   13.1
 	 */
-	public function casesFormat()
+	public static function casesFormat()
 	{
 		return array(
 			'basic' => array(
@@ -208,7 +208,7 @@ class DateTest extends TestCase
 	 *
 	 * @since   13.1
 	 */
-	public function casesGetOffsetFromGMT()
+	public static function casesGetOffsetFromGMT()
 	{
 		return array(
 			'basic' => array(
@@ -251,7 +251,7 @@ class DateTest extends TestCase
 	 *
 	 * @since   13.1
 	 */
-	public function casesSetTimezone()
+	public static function casesSetTimezone()
 	{
 		return array(
 			'New_York' => array(
@@ -288,7 +288,7 @@ class DateTest extends TestCase
 	 *
 	 * @since   13.1
 	 */
-	public function casesToISO8601()
+	public static function casesToISO8601()
 	{
 		return array(
 			'basic' => array(
@@ -331,7 +331,7 @@ class DateTest extends TestCase
 	 *
 	 * @since   13.1
 	 */
-	public function casesToRFC822()
+	public static function casesToRFC822()
 	{
 		return array(
 			'basic' => array(
@@ -374,7 +374,7 @@ class DateTest extends TestCase
 	 *
 	 * @since   13.1
 	 */
-	public function casesToString()
+	public static function casesToString()
 	{
 		return array(
 			'basic' => array(
@@ -399,7 +399,7 @@ class DateTest extends TestCase
 	 *
 	 * @since   13.1
 	 */
-	public function casesToUnix()
+	public static function casesToUnix()
 	{
 		return array(
 			'basic' => array(
