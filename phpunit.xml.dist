@@ -18,8 +18,6 @@
 	<filter>
 		<whitelist addUncoveredFilesFromWhitelist="true">
 			<directory suffix=".php">src</directory>
-			<file>libraries/import.php</file>
-			<file>libraries/stub.php</file>
 		</whitelist>
 	</filter>
 </phpunit>
