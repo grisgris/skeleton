@@ -27,6 +27,24 @@ use SplObjectStorage;
 class Set implements Exportable, ArrayAccess, Countable, Iterator, JsonSerializable
 {
 	/**
+	 * @var    integer  The set limit.
+	 * @since  13.1
+	 */
+	protected $limit;
+
+	/**
+	 * @var    integer  The set offset.
+	 * @since  13.1
+	 */
+	protected $offset;
+
+	/**
+	 * @var    integer  The set total.
+	 * @since  13.1
+	 */
+	protected $total;
+
+	/**
 	 * @var    integer  The current position of the iterator.
 	 * @since  13.1
 	 */
@@ -48,7 +66,15 @@ class Set implements Exportable, ArrayAccess, Countable, Iterator, JsonSerializa
 	 */
 	public function __construct(array $objects = array())
 	{
-		$this->_initialise($objects);
+		foreach ($objects as $key => $object)
+		{
+			if (!is_null($object))
+			{
+				$this->offsetSet($key, $object);
+			}
+		}
+
+		$this->rewind();
 	}
 
 	/**
@@ -221,7 +247,7 @@ class Set implements Exportable, ArrayAccess, Countable, Iterator, JsonSerializa
 	/**
 	 * Get the current data object in the set.
 	 *
-	 * @return    The current object, or false if the array is empty or the pointer is beyond the end of the elements.
+	 * @return  Data  The current object, or false if the array is empty or the pointer is beyond the end of the elements.
 	 *
 	 * @since   13.1
 	 */
@@ -267,6 +293,42 @@ class Set implements Exportable, ArrayAccess, Countable, Iterator, JsonSerializa
 		}
 
 		return $objects;
+	}
+
+	/**
+	 * Get the set limit.
+	 *
+	 * @return  integer
+	 *
+	 * @since   13.1
+	 */
+	public function getLimit()
+	{
+		return $this->limit;
+	}
+
+	/**
+	 * Get the set offset.
+	 *
+	 * @return  integer
+	 *
+	 * @since   13.1
+	 */
+	public function getOffset()
+	{
+		return $this->offset;
+	}
+
+	/**
+	 * Get the set total.
+	 *
+	 * @return  integer
+	 *
+	 * @since   13.1
+	 */
+	public function getTotal()
+	{
+		return $this->total;
 	}
 
 	/**
@@ -384,7 +446,7 @@ class Set implements Exportable, ArrayAccess, Countable, Iterator, JsonSerializa
 	 *
 	 * @param   mixed  $offset  The object offset.
 	 *
-	 * @return    The object if it exists, null otherwise.
+	 * @return  Data  The object if it exists, null otherwise.
 	 *
 	 * @since   13.1
 	 */
@@ -397,7 +459,7 @@ class Set implements Exportable, ArrayAccess, Countable, Iterator, JsonSerializa
 	 * Sets an offset in the iterator.
 	 *
 	 * @param   mixed  $offset  The object offset.
-	 * @param     $object  The object object.
+	 * @param   Data   $object  The object object.
 	 *
 	 * @return  void
 	 *
@@ -478,6 +540,54 @@ class Set implements Exportable, ArrayAccess, Countable, Iterator, JsonSerializa
 	}
 
 	/**
+	 * Set the limit.
+	 *
+	 * @param   integer  $limit  The limit.
+	 *
+	 * @return  Set  Instance of $this to allow chaining.
+	 *
+	 * @since  13.1
+	 */
+	public function setLimit($limit)
+	{
+		$this->limit = (int) $limit;
+
+		return $this;
+	}
+
+	/**
+	 * Set the offset.
+	 *
+	 * @param   integer  $offset  The offset.
+	 *
+	 * @return  Set  Instance of $this to allow chaining.
+	 *
+	 * @since  13.1
+	 */
+	public function setOffset($offset)
+	{
+		$this->offset = (int) $offset;
+
+		return $this;
+	}
+
+	/**
+	 * Set the total.
+	 *
+	 * @param   integer  $total  The total.
+	 *
+	 * @return  Set  Instance of $this to allow chaining.
+	 *
+	 * @since  13.1
+	 */
+	public function setTotal($total)
+	{
+		$this->total = (int) $total;
+
+		return $this;
+	}
+
+	/**
 	 * Returns the Set as an array primitive.
 	 *
 	 * @return  array
@@ -516,28 +626,5 @@ class Set implements Exportable, ArrayAccess, Countable, Iterator, JsonSerializa
 		}
 
 		return true;
-	}
-
-	/**
-	 * Initialises the list with an array of objects.
-	 *
-	 * @param   array  $input  An array of objects.
-	 *
-	 * @return  void
-	 *
-	 * @since   13.1
-	 * @throws  InvalidArgumentException if an object is not an instance of .
-	 */
-	private function _initialise(array $input = array())
-	{
-		foreach ($input as $key => $object)
-		{
-			if (!is_null($object))
-			{
-				$this->offsetSet($key, $object);
-			}
-		}
-
-		$this->rewind();
 	}
 }

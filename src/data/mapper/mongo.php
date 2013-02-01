@@ -143,7 +143,12 @@ abstract class MapperMongo extends Mapper
 			$set[] = $this->fromMongo($result);
 		}
 
-		return new Set($set);
+		$set = new Set($set);
+		$set->setLimit($limit);
+		$set->setOffset($offset);
+		$set->setTotal($cursor->count());
+
+		return $set;
 	}
 
 	/**

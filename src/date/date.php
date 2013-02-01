@@ -11,6 +11,7 @@ namespace Grisgris\Date;
 
 use DateTime;
 use DateTimeZone;
+use JsonSerializable;
 
 /**
  * Date is a class that stores a date and provides logic to manipulate and render that date in a variety of formats.
@@ -32,7 +33,7 @@ use DateTimeZone;
  * @subpackage  Date
  * @since       13.1
  */
-class Date extends DateTime
+class Date extends DateTime implements JsonSerializable
 {
 	/**
 	 * @var    string  The format string to be applied when using the __toString() magic method.
@@ -228,6 +229,19 @@ class Date extends DateTime
 	public function getOffsetFromGMT($hours = false)
 	{
 		return (float) $hours ? ($this->tz->getOffset($this) / 3600) : $this->tz->getOffset($this);
+	}
+
+	/**
+	 * Gets the date in date in milliseconds since the UNIX epoch.  This format is easily usable in JavaScript Date objects and
+	 * thus the most useful representation for JSON.
+	 *
+	 * @return  integer
+	 *
+	 * @since   13.1
+	 */
+	public function jsonSerialize()
+	{
+		return (int) parent::format('U') * 1000;
 	}
 
 	/**

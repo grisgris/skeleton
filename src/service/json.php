@@ -9,8 +9,6 @@
 
 namespace Grisgris\Service;
 
-use Grisgris\Date\Date;
-
 /**
  * Abstract JSON service class.
  *
@@ -40,29 +38,6 @@ abstract class Json extends Service
 	}
 
 	/**
-	 * Pre-process the response value to ensure it is ready to be JSON encoded.
-	 *
-	 * @param   mixed  $body  The response value to be JSON encoded.
-	 *
-	 * @return  mixed  The response body as an array or scalar, ready to be encoded.
-	 *
-	 * @since   13.1
-	 */
-	protected function processBody($body)
-	{
-		$body = $this->_toArray($body);
-		array_walk_recursive($body, function(&$value, $key)
-		{
-			if ($value instanceof Date)
-			{
-				$value = $value->toUnix() * 1000;
-			}
-		});
-
-		return $body;
-	}
-
-	/**
 	 * Set a WebResponse object to the application with a JSON encoded body.  The second argument can be used to
 	 * set the response status and code.  If none is set 200 OK will be used.
 	 *
@@ -76,34 +51,5 @@ abstract class Json extends Service
 	protected function setResponse($body, $type = 'Ok')
 	{
 		parent::setResponse(json_encode($body), $type);
-	}
-
-	/**
-	 * Recursively convert an object to an associative array.  Date objects are ignored during conversion.
-	 *
-	 * @param   object  $value  The object to convert to an array.
-	 *
-	 * @return  array
-	 *
-	 * @since   13.1
-	 */
-	private function _toArray($value)
-	{
-		if (is_object($value))
-		{
-			if (!$value instanceof Date)
-			{
-				$value = get_object_vars($value);
-			}
-		}
-
-		if (is_array($value))
-		{
-			return array_map(array($this, '_toArray'), $value);
-		}
-		else
-		{
-			return $value;
-		}
 	}
 }

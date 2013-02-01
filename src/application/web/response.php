@@ -239,7 +239,7 @@ abstract class WebResponse
 	public function send($compress = false)
 	{
 		$this->setHeader('Status', $this->status, true);
-		$this->setHeader('Content-Type', $this->contentType . '; characterSet=' . $this->characterSet);
+		$this->setHeader('Content-Type', $this->contentType . '; charset=' . $this->characterSet);
 
 		// If the response does not have a cache until date let's disable caching.
 		if ($this->cacheUntil === false)

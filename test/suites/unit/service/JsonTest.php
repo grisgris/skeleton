@@ -13,7 +13,6 @@ namespace Grisgris\Test\Suites\Unit\Service;
 use Grisgris\Test\Reflection;
 use Grisgris\Test\TestCase;
 
-use Grisgris\Date\Date;
 use Grisgris\Provider\Provider;
 use Grisgris\Service\Json;
 
@@ -37,33 +36,6 @@ class JsonTest extends TestCase
 	 * @since  13.1
 	 */
 	private $_provider;
-
-	/**
-	 * Tests the `_toArray` method with invalid response type.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Grisgris\Service\Json::_toArray
-	 * @since   13.1
-	 */
-	public function test_toArray()
-	{
-		$date = new Date;
-		$input = (object) array('foo' => (object) array('bar' => 'baz', 'self' => (object) array('a' => 42, 'b' => $date)));
-
-		$this->assertEquals(
-			array(
-				'foo' => array(
-					'bar' => 'baz',
-					'self' => array(
-						'a' => 42,
-						'b' => $date
-					)
-				)
-			),
-			Reflection::invoke($this->_instance, '_toArray', $input)
-		);
-	}
 
 	/**
 	 * Tests the `createResponse` method.
@@ -102,33 +74,6 @@ class JsonTest extends TestCase
 
 		$response = Reflection::invoke($this->_instance, 'createResponse', 'foobar');
 		$this->assertInstanceOf('Grisgris\Application\WebResponseOk', $response);
-	}
-
-	/**
-	 * Tests the `processBody` method with invalid response type.
-	 *
-	 * @return  void
-	 *
-	 * @covers  Grisgris\Service\Json::processBody
-	 * @since   13.1
-	 */
-	public function testProcessBody()
-	{
-		$date = new Date;
-		$input = (object) array('foo' => (object) array('bar' => 'baz', 'self' => (object) array('a' => 42, 'b' => $date)));
-
-		$this->assertEquals(
-			array(
-				'foo' => array(
-					'bar' => 'baz',
-					'self' => array(
-						'a' => 42,
-						'b' => $date->toUnix() * 1000
-					)
-				)
-			),
-			Reflection::invoke($this->_instance, 'processBody', $input)
-		);
 	}
 
 	/**

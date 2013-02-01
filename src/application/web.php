@@ -9,7 +9,6 @@
 
 namespace Grisgris\Application;
 
-use LogicException;
 use Grisgris\Application\Web\Response;
 use Grisgris\Event\Event;
 use Grisgris\Provider\Provider;
@@ -73,7 +72,7 @@ abstract class Web extends Application
 
 		if (!$this->response instanceof WebResponse)
 		{
-			throw new LogicException('No response to send.');
+			$this->handleNoResponse();
 		}
 
 		$this->triggerEvent(new Event('onBeforeRespond'));
@@ -195,6 +194,18 @@ abstract class Web extends Application
 		}
 
 		return new WebClient;
+	}
+
+	/**
+	 * Handle the case where the application has no response object to send.
+	 *
+	 * @return  void
+	 *
+	 * @since   13.1
+	 */
+	protected function handleNoResponse()
+	{
+		$this->setResponse(new WebResponseNotFound($this->provider));
 	}
 
 	/**
