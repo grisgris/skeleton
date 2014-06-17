@@ -458,7 +458,7 @@ class Input implements Serializable, Countable
 	protected function filterFloat($input)
 	{
 		preg_match('/-?[0-9]+(\.[0-9]+)?/', (string) $input, $matches);
-		return @ (float) $matches[0];
+		return (float) isset($matches[0]) ? $matches[0] : null;
 	}
 
 	/**
@@ -474,7 +474,7 @@ class Input implements Serializable, Countable
 	protected function filterInteger($input)
 	{
 		preg_match('/-?[0-9]+/', (string) $input, $matches);
-		return @ (int) $matches[0];
+		return (int) isset($matches[0]) ? $matches[0] : null;
 	}
 
 	/**
@@ -493,7 +493,7 @@ class Input implements Serializable, Countable
 			(string) $input,
 			$matches
 		);
-		return @ (string) $matches[0];
+		return (string) isset($matches[0]) ? $matches[0] : null;
 	}
 
 	/**

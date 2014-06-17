@@ -53,7 +53,7 @@ abstract class WebResponseRedirect extends WebResponse
 	 *
 	 * @since   13.1
 	 */
-	public function send()
+	public function send($compress = false)
 	{
 		// If the headers have already been sent we need to send the redirect statement via JavaScript.
 		if ($this->checkHeadersSent())

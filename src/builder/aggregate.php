@@ -105,7 +105,7 @@ class Aggregate implements Builder
 	{
 		if (!isset($this->builders[$key]))
 		{
-			throw new InvalidArgumentException('Type not registered for construction: ' . $type);
+			throw new InvalidArgumentException('Type not registered for construction: ' . $key);
 		}
 
 		return $this->builders[$key];

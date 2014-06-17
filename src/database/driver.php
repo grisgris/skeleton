@@ -832,7 +832,8 @@ abstract class Driver
 		}
 
 		// Get all of the rows from the result set as objects of type $class.
-		while ($row = $this->fetchObject($cursor, $class))
+		$row = $this->fetchObject($cursor, $class);
+		while ($row)
 		{
 			if ($key)
 			{
@@ -842,6 +843,8 @@ abstract class Driver
 			{
 				$array[] = $row;
 			}
+
+			$row = $this->fetchObject($cursor, $class);
 		}
 
 		// Free up system resources and return.
@@ -944,7 +947,8 @@ abstract class Driver
 		}
 
 		// Get all of the rows from the result set as arrays.
-		while ($row = $this->fetchArray($cursor))
+		$row = $this->fetchArray($cursor);
+		while ($row)
 		{
 			if ($key !== null)
 			{
@@ -954,6 +958,8 @@ abstract class Driver
 			{
 				$array[] = $row;
 			}
+			
+			$row = $this->fetchArray($cursor);
 		}
 
 		// Free up system resources and return.

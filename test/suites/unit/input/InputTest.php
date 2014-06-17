@@ -699,7 +699,7 @@ class InputTest extends TestCase
 		parent::setUp();
 
 		$this->_provider = new Provider;
-		$this->_instance = new Input($this->_provider, array());
+		$this->_instance = new Input($this->_provider, $_REQUEST);
 	}
 
 	/**
